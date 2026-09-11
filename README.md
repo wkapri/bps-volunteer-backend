@@ -53,8 +53,7 @@ a second, unencoded `#` (`...#/#836678361-date-wrap`), which isn't strictly
 RFC 3986-conformant even though it's what SignUpGenius itself generates and
 browsers handle fine. Fixed here by dropping the `format` constraint on that
 one field (confirmed against a real generated `data.json` + `npm run
-validate`). **`bps-volunteer-ui`'s mirror schema needs the same fix** — it
-still has `"format": "uri"` there.
+validate`). Applied the same fix to `bps-volunteer-ui`'s mirror schema.
 
 ## Known gaps vs. the v1 design (see `DESIGN.md` section 10)
 
@@ -75,7 +74,14 @@ still has `"format": "uri"` there.
 
 See [`.env.example`](.env.example). In GitHub Actions:
 
-- `SUG_API_KEY` — secret.
-- `DATA_REPO` — repository **variable**, e.g. `wkapri/bps-volunteer-data`. The
-  publish step in `.github/workflows/cron.yml` is skipped until this is set.
-- `DATA_REPO_TOKEN` — secret, a token with push access to `DATA_REPO`.
+- `SUG_API_KEY` — secret. **Required** for the workflow to run at all.
+- `DATA_REPO_TOKEN` — secret, a token with push (contents: write) access to
+  `wkapri/bps-volunteer-data`. **Required** for the publish step — without it,
+  `data.json` still gets generated and validated each run, but the "Publish to
+  bps-volunteer-data" step fails at the `git clone`/push. A fine-grained PAT
+  scoped to just that one repo is the least-privilege option
+  (Settings → Developer settings → Fine-grained tokens → generate, select only
+  `bps-volunteer-data`, grant Contents: Read and write), added here under
+  Settings → Secrets and variables → Actions → New repository secret.
+- `DATA_REPO` — optional repository **variable** to override the target repo;
+  defaults to `wkapri/bps-volunteer-data` if unset.

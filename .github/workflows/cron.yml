@@ -29,12 +29,12 @@ jobs:
       - run: npm run validate
 
       - name: Publish to bps-volunteer-data
-        if: vars.DATA_REPO != ''
         env:
           GH_TOKEN: ${{ secrets.DATA_REPO_TOKEN }}
+          DATA_REPO: ${{ vars.DATA_REPO || 'wkapri/bps-volunteer-data' }}
         run: |
           set -euo pipefail
-          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${{ vars.DATA_REPO }}.git" data-repo
+          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${DATA_REPO}.git" data-repo
           cp dist/data.json data-repo/data.json
           cd data-repo
           git config user.name "bps-volunteer-backend bot"
