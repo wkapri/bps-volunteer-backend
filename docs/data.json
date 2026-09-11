@@ -1,0 +1,260 @@
+{
+  "generatedAt": "2026-09-11T14:44:34.348+10:00",
+  "timezone": "Australia/Sydney",
+  "schemaVersion": 1,
+  "canteen": {
+    "signupId": 63670841,
+    "title": "Canteen Volunteer Term 3 2026 TEST",
+    "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen",
+    "days": [
+      {
+        "date": "2026-09-11",
+        "weekday": "Friday",
+        "status": "closed"
+      },
+      {
+        "date": "2026-09-14",
+        "weekday": "Monday",
+        "status": "red",
+        "capacity": 2,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217584-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 1,
+            "filled": 0
+          },
+          {
+            "label": "10-12",
+            "capacity": 1,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-15",
+        "weekday": "Tuesday",
+        "status": "amber",
+        "capacity": 2,
+        "filled": 1,
+        "fillPct": 50,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217586-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 1,
+            "filled": 1
+          },
+          {
+            "label": "10-12",
+            "capacity": 1,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-16",
+        "weekday": "Wednesday",
+        "status": "amber",
+        "capacity": 2,
+        "filled": 1,
+        "fillPct": 50,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217590-date-wrap",
+        "shifts": [
+          {
+            "label": "10-12",
+            "capacity": 1,
+            "filled": 1
+          },
+          {
+            "label": "12-2",
+            "capacity": 1,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-17",
+        "weekday": "Thursday",
+        "status": "green",
+        "capacity": 4,
+        "filled": 4,
+        "fillPct": 100,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217752-date-wrap",
+        "shifts": [
+          {
+            "label": "10-12",
+            "capacity": 2,
+            "filled": 2
+          },
+          {
+            "label": "12-2",
+            "capacity": 2,
+            "filled": 2
+          }
+        ]
+      },
+      {
+        "date": "2026-09-18",
+        "weekday": "Friday",
+        "status": "red",
+        "capacity": 4,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217750-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 2,
+            "filled": 0
+          },
+          {
+            "label": "10-12",
+            "capacity": 2,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-21",
+        "weekday": "Monday",
+        "status": "red",
+        "capacity": 2,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217592-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 1,
+            "filled": 0
+          },
+          {
+            "label": "10-12",
+            "capacity": 1,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-22",
+        "weekday": "Tuesday",
+        "status": "red",
+        "capacity": 2,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217594-date-wrap",
+        "shifts": [
+          {
+            "label": "10-12",
+            "capacity": 1,
+            "filled": 0
+          },
+          {
+            "label": "12-2",
+            "capacity": 1,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-23",
+        "weekday": "Wednesday",
+        "status": "red",
+        "capacity": 8,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843216472-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 4,
+            "filled": 0
+          },
+          {
+            "label": "10-12",
+            "capacity": 4,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-24",
+        "weekday": "Thursday",
+        "status": "red",
+        "capacity": 4,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217746-date-wrap",
+        "shifts": [
+          {
+            "label": "12-2",
+            "capacity": 2,
+            "filled": 0
+          },
+          {
+            "label": "10-12",
+            "capacity": 2,
+            "filled": 0
+          }
+        ]
+      },
+      {
+        "date": "2026-09-25",
+        "weekday": "Friday",
+        "status": "red",
+        "capacity": 4,
+        "filled": 0,
+        "fillPct": 0,
+        "deepLink": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen#/#1843217748-date-wrap",
+        "shifts": [
+          {
+            "label": "10-12",
+            "capacity": 2,
+            "filled": 0
+          },
+          {
+            "label": "12-2",
+            "capacity": 2,
+            "filled": 0
+          }
+        ]
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": 65776711,
+      "title": "BPS Working Bee TEST",
+      "date": "2026-10-24",
+      "description": null,
+      "imageUrl": "https://www.signupgenius.com/images/theme/F73EAA2023CE19FA7D91C8B1EBE99BCC_0.jpg",
+      "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-65776711-bpsworking",
+      "status": "red",
+      "capacity": 327,
+      "filled": 20,
+      "fillPct": 6,
+      "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
+    },
+    {
+      "id": 65776897,
+      "title": "Disco - Years 3-6 - Friday 6th November 2026 TEST",
+      "date": "2026-11-06",
+      "description": null,
+      "imageUrl": "https://www.signupgenius.com/images/theme/741F9E11AEDDAC424C1B4F4B1C53021B_0.jpg",
+      "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-65776897-disco",
+      "status": "amber",
+      "capacity": 26,
+      "filled": 14,
+      "fillPct": 54,
+      "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
+    }
+  ],
+  "diagnostics": {
+    "canteenSource": "key-api",
+    "eventsFetched": 2,
+    "warnings": []
+  }
+}

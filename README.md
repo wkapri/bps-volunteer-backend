@@ -1,10 +1,12 @@
 # bps-volunteer-backend
 
-Hourly job that reads canteen + event sign-ups from SignUpGenius and writes a
-single `data.json` for `bps-volunteer-ui`. One of three repos — see
+Hourly job that reads canteen + event sign-ups from SignUpGenius and writes
+`docs/data.json`, served by this repo's own GitHub Pages for
+`bps-volunteer-ui` to fetch. See
 [`DESIGN.md`](https://github.com/wkapri/bps-volunteer-ui/blob/main/DESIGN.md)
-in `bps-volunteer-ui` for the full design (this repo is `bps-volunteer-cron`
-in that doc; kept as `bps-volunteer-backend` for now, may be renamed later).
+in `bps-volunteer-ui` for the full design (this repo covers what that doc
+calls `bps-volunteer-cron` *and* `bps-volunteer-data` — merged into one repo;
+see [Deviations from DESIGN.md](#deviations-from-designmd)).
 
 There is no server here — it's a script GitHub Actions runs on a schedule,
 not a long-running backend.
@@ -72,16 +74,41 @@ validate`). Applied the same fix to `bps-volunteer-ui`'s mirror schema.
 
 ## Environment variables
 
-See [`.env.example`](.env.example). In GitHub Actions:
+See [`.env.example`](.env.example). In GitHub Actions, only one secret is
+needed:
 
-- `SUG_API_KEY` — secret. **Required** for the workflow to run at all.
-- `DATA_REPO_TOKEN` — secret, a token with push (contents: write) access to
-  `wkapri/bps-volunteer-data`. **Required** for the publish step — without it,
-  `data.json` still gets generated and validated each run, but the "Publish to
-  bps-volunteer-data" step fails at the `git clone`/push. A fine-grained PAT
-  scoped to just that one repo is the least-privilege option
-  (Settings → Developer settings → Fine-grained tokens → generate, select only
-  `bps-volunteer-data`, grant Contents: Read and write), added here under
-  Settings → Secrets and variables → Actions → New repository secret.
-- `DATA_REPO` — optional repository **variable** to override the target repo;
-  defaults to `wkapri/bps-volunteer-data` if unset.
+- `SUG_API_KEY` — secret (Settings → Secrets and variables → Actions → New
+  repository secret). **Required** for the workflow to run at all.
+
+The commit-back-to-this-repo step uses the workflow's automatic `GITHUB_TOKEN`
+(no PAT to create, rotate, or have expire) — see below.
+
+## Deviations from DESIGN.md
+
+`DESIGN.md` specs three repos (`bps-volunteer-ui`, `-cron`, `-data`). This
+repo merges `-cron` and `-data` into one, for two practical reasons:
+
+1. **No cross-repo credential to maintain.** Publishing to a separate repo
+   needs a PAT (fine-grained tokens expire; even "no expiration" is a
+   standing credential to track). Committing to *this* repo's own
+   `docs/data.json` uses the workflow's automatic `GITHUB_TOKEN`
+   (`permissions: contents: write`) — issued fresh per run, nothing to
+   rotate.
+2. **Avoids scheduled-workflow auto-disable.** GitHub disables a scheduled
+   workflow after 60 days with no activity on the repo that hosts it. A
+   separate `bps-volunteer-data` repo could go quiet from this repo's point
+   of view even while the cron "worked" (it only ever touched the *other*
+   repo). Since every hourly run now commits to this repo directly, that
+   60-day clock never has a chance to fire.
+
+`bps-volunteer-data` (if you created it) is unused — data now lives in
+`docs/data.json` here, served by this repo's own GitHub Pages.
+
+### Enabling Pages for this repo
+
+Settings → Pages → "Build and deployment" → Source: **Deploy from a branch**
+→ Branch: `main`, folder **`/docs`**. Once enabled, `data.json` is served at:
+
+```
+https://wkapri.github.io/bps-volunteer-backend/data.json
+```

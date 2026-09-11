@@ -6,7 +6,7 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: read
+  contents: write # needed to commit docs/data.json back to this repo
 
 jobs:
   generate:
@@ -24,22 +24,16 @@ jobs:
       - run: npm run generate
         env:
           SUG_API_KEY: ${{ secrets.SUG_API_KEY }}
-          OUTPUT_PATH: dist/data.json
+          OUTPUT_PATH: docs/data.json
 
-      - run: npm run validate
+      - run: npm run validate -- docs/data.json
 
-      - name: Publish to bps-volunteer-data
-        env:
-          GH_TOKEN: ${{ secrets.DATA_REPO_TOKEN }}
-          DATA_REPO: ${{ vars.DATA_REPO || 'wkapri/bps-volunteer-data' }}
+      - name: Commit data.json
         run: |
           set -euo pipefail
-          git clone --depth 1 "https://x-access-token:${GH_TOKEN}@github.com/${DATA_REPO}.git" data-repo
-          cp dist/data.json data-repo/data.json
-          cd data-repo
           git config user.name "bps-volunteer-backend bot"
           git config user.email "actions@users.noreply.github.com"
-          git add data.json
+          git add docs/data.json
           git diff --cached --quiet && exit 0
           git commit -m "chore: update data.json [skip ci]"
           git push
