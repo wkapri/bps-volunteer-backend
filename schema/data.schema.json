@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://beecroft-pnc.github.io/bps-volunteer-data/data.schema.json",
+  "title": "BPS P&C Volunteer Dashboard data.json",
+  "description": "Contract between bps-volunteer-cron and bps-volunteer-ui. See DESIGN.md section 4.",
+  "type": "object",
+  "required": ["generatedAt", "timezone", "schemaVersion", "canteen", "events"],
+  "additionalProperties": true,
+  "properties": {
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "timezone": { "const": "Australia/Sydney" },
+    "schemaVersion": { "const": 1 },
+    "canteen": {
+      "type": "object",
+      "required": ["signupUrl", "days"],
+      "properties": {
+        "signupId": { "type": ["integer", "null"] },
+        "title": { "type": ["string", "null"] },
+        "signupUrl": { "type": "string", "format": "uri" },
+        "days": { "type": "array", "items": { "$ref": "#/$defs/canteenDay" } }
+      }
+    },
+    "events": { "type": "array", "items": { "$ref": "#/$defs/event" } },
+    "diagnostics": {
+      "type": "object",
+      "properties": {
+        "canteenSource": { "enum": ["public-sheet", "key-api"] },
+        "eventsFetched": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "$defs": {
+    "canteenDay": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["date", "weekday", "status", "capacity", "filled", "fillPct", "deepLink", "shifts"],
+          "properties": {
+            "date": { "type": "string", "format": "date" },
+            "weekday": { "type": "string" },
+            "status": { "enum": ["green", "amber", "red"] },
+            "capacity": { "type": "integer", "minimum": 1 },
+            "filled": { "type": "integer", "minimum": 0 },
+            "fillPct": { "type": "integer", "minimum": 0, "maximum": 100 },
+            "deepLink": { "type": "string" },
+            "note": { "type": "string" },
+            "shifts": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["label", "capacity", "filled"],
+                "properties": {
+                  "label": { "type": "string" },
+                  "capacity": { "type": "integer", "minimum": 0 },
+                  "filled": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "required": ["date", "weekday", "status"],
+          "properties": {
+            "date": { "type": "string", "format": "date" },
+            "weekday": { "type": "string" },
+            "status": { "const": "closed" },
+            "note": { "type": "string" }
+          }
+        }
+      ]
+    },
+    "event": {
+      "type": "object",
+      "required": ["id", "title", "date", "signupUrl", "status", "capacity", "filled", "fillPct"],
+      "properties": {
+        "id": { "type": "integer" },
+        "title": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "description": { "type": ["string", "null"] },
+        "imageUrl": { "type": ["string", "null"] },
+        "signupUrl": { "type": "string", "format": "uri" },
+        "status": { "enum": ["green", "amber", "red"] },
+        "capacity": { "type": "integer", "minimum": 0 },
+        "filled": { "type": "integer", "minimum": 0 },
+        "fillPct": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "capacityNote": { "type": "string" },
+        "_synthetic": { "type": "boolean" }
+      }
+    }
+  }
+}
