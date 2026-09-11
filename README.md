@@ -19,6 +19,14 @@ cp .env.example .env   # fill in SUG_API_KEY
 npm run generate       # writes dist/data.json
 ```
 
+If you're testing from behind a corporate/sandbox HTTPS proxy (e.g. Claude
+Code's own sandboxed environments): Node's built-in `fetch` — which
+`publicSignupApi.ts` uses — does not read `HTTPS_PROXY` by default and will
+fail with a confusing 403 hitting `www.signupgenius.com` even though `curl`
+to the same host works fine. Run with `NODE_USE_ENV_PROXY=1` set (Node ≥
+22.21) to fix it. Not needed in GitHub Actions — runners there have normal
+direct internet access.
+
 ## Scripts
 
 | | |
@@ -31,25 +39,32 @@ npm run generate       # writes dist/data.json
 
 ## How it works
 
-1. `GET /signups/created/active/` — list all active sign-ups.
+1. `GET /signups/created/active/` (key API) — list all active sign-ups.
 2. Identify the canteen sign-up by title prefix (`CANTEEN_TITLE_PREFIX`, default
    `"Canteen Volunteer"`) or an explicit `CANTEEN_SIGNUP_ID` override.
-3. `GET /signups/report/all/{signupid}/` for the canteen sign-up — each row is
-   one (date, shift-item) slot instance; an unfilled instance has blank
-   participant fields and `myqty` is its remaining capacity. Grouped by date,
-   summed into per-shift and per-day capacity/filled, filtered to weekdays,
-   with the 3pm Sydney day-rollover and "closed" (zero-capacity weekday)
-   detection from `DESIGN.md` section 4.2. Separately,
-   `POST https://www.signupgenius.com/SUGboxAPI.cfm?go=s.getSignupInfo`
-   (keyless, undocumented — see `src/publicSignupApi.ts`) for the per-date
-   `slotid` each day's deep-link anchor needs — a *different* id from
-   `slotitemid` above; see "Canteen deep link" below.
-4. Same report call for every other active sign-up → `events`, dropped after
-   Sydney midnight on the event date.
+3. **Canteen — preferred path:** `POST
+   https://www.signupgenius.com/SUGboxAPI.cfm?go=s.getSignupInfo` (keyless,
+   undocumented — see `src/publicSignupApi.ts`). Per DESIGN.md section 5, this
+   was always meant to be the primary source. It returns, per date: a
+   `slotid` (the id the `-date-wrap` deep-link anchor needs) and, per shift,
+   `qty`/`qtyTaken` — SignUpGenius's own capacity/filled counts, used
+   directly rather than inferred. One quirk handled: `qtyTaken` comes back as
+   `""` (not `0`) when a shift is completely unfilled — see `toCount()`.
+   **Fallback:** if this endpoint fails or returns nothing, falls back to
+   `GET /signups/report/all/{signupid}/` (key API) — each row there is one
+   (date, shift-item) slot instance, capacity/filled inferred from row
+   presence — with the bare `signupUrl` in place of a real deep link (no
+   `slotid` is obtainable from this endpoint; see "Canteen deep link"
+   below), and a `diagnostics.warnings` entry recording why. Either way:
+   weekday-only, 3pm Sydney day-rollover, "closed" (zero-capacity weekday)
+   detection per DESIGN.md section 4.2.
+4. `GET /signups/report/all/{signupid}/` (key API) for every other active
+   sign-up → `events`, dropped after Sydney midnight on the event date.
 5. Any top-level fetch failure aborts the run without writing — the previous
    `data.json` is left in place (`DESIGN.md` section 4.3). A single failed
    event is skipped and recorded in `diagnostics.warnings` instead of aborting
-   the whole run.
+   the whole run. `diagnostics.canteenSource` records which canteen path
+   (`"public-sheet"` or `"key-api"`) actually served this run.
 
 ## Schema fix vs. bps-volunteer-ui's mirror
 
@@ -71,10 +86,15 @@ anchor needs, so every deep link pointed at the wrong (or a non-existent)
 anchor. Confirmed 2026-09-11 by reverse-engineering signup.min.js: the real
 per-date `slotid` only appears in the separate, keyless
 `SUGboxAPI.cfm?go=s.getSignupInfo` endpoint (see `src/publicSignupApi.ts`),
-nested one level *above* `slotitemid` in that response's shape. Cron now
-calls both endpoints; if the public one fails, it falls back to the bare
-`signupUrl` and records a `diagnostics.warnings` entry rather than breaking
-the link silently.
+nested one level *above* `slotitemid` in that response's shape.
+
+While fixing this, also switched canteen capacity/filled to come from that
+same endpoint's `qty`/`qtyTaken` fields directly (see "How it works" above)
+instead of being inferred from `/signups/report/all/` row presence — this
+was always DESIGN.md's originally-specified preferred source, and is
+strictly more accurate (SignUpGenius's own numbers, not our inference). The
+key API remains as a fallback if the public endpoint ever breaks, just
+without real deep links.
 
 ## Other known gaps vs. the v1 design (see `DESIGN.md` section 10)
 

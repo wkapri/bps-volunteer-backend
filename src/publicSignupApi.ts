@@ -1,16 +1,22 @@
 import { DateTime } from "luxon";
+import type { CanteenShift } from "./types.js";
 
 /**
  * Client for SignUpGenius's keyless, undocumented public sign-up sheet
  * endpoint — the same one the site's own Angular frontend calls to render a
  * signup page. Confirmed live 2026-09-11 by reverse-engineering
- * signup.min.js's `getsignup()` call site (see canteen.ts for why this is
- * needed: the per-date `-date-wrap` deep-link anchor uses a date-level
- * `slotid` that is NOT present anywhere in the key API's
- * `/signups/report/all/` response — that endpoint only exposes a *different*,
- * per-shift `slotitemid`, nested one level deeper under each date's `slotid`
- * in this response. DESIGN.md section 10 flagged this as the open question;
- * this resolves it.
+ * signup.min.js's `getsignup()` call site.
+ *
+ * This is DESIGN.md section 5's originally-specified *preferred* source for
+ * canteen data (no key, no documented rate limit) — canteen.ts tries this
+ * first and falls back to the key API's `/signups/report/all/` (capacity
+ * inferred, no deep links) only if this endpoint is unreachable.
+ *
+ * It's also the *only* source for the per-date `slotid` the `-date-wrap`
+ * deep-link anchor needs — report/all exposes a different, per-shift
+ * `slotitemid` (nested one level deeper, under `items[]`, in this response's
+ * shape) that does not work as the date anchor. DESIGN.md section 10 flagged
+ * this as the open question; this resolves it.
  */
 
 const ENDPOINT = "https://www.signupgenius.com/SUGboxAPI.cfm?go=s.getSignupInfo";
@@ -18,8 +24,16 @@ const ENDPOINT = "https://www.signupgenius.com/SUGboxAPI.cfm?go=s.getSignupInfo"
 interface SugPublicSlotItem {
   item: string;
   slotitemid: number;
-  qty: number;
-  qtyTaken: number;
+  // Observed live: a genuine number when non-zero, but "" (empty string) —
+  // not 0 — when zero. Coerce with toCount(), never use these raw.
+  qty: number | string; // total capacity for this shift on this date
+  qtyTaken: number | string; // already-filled quantity — DESIGN.md 4.2/§10: sum of quantities, not participant count
+}
+
+/** `Number("")` is 0 in JS, which is what we want — but guard NaN from any other unexpected shape too. */
+function toCount(value: number | string): number {
+  const n = Number(value);
+  return Number.isFinite(n) ? n : 0;
 }
 
 interface SugPublicSlot {
@@ -35,6 +49,11 @@ interface SugPublicSignupInfo {
   };
 }
 
+export interface PublicDateSlot {
+  slotid: number;
+  shifts: CanteenShift[];
+}
+
 /** Extracts the `urlid` (everything after `/go/`) the public endpoint expects. */
 export function urlKeyFromSignupUrl(signupUrl: string): string | null {
   const match = /\/go\/([^/?#]+)/.exec(signupUrl);
@@ -42,15 +61,15 @@ export function urlKeyFromSignupUrl(signupUrl: string): string | null {
 }
 
 /**
- * Returns a map of ISO date -> per-date `slotid`, for building
- * `<signupUrl>#/#<slotid>-date-wrap` deep links. Returns an empty map (never
- * throws past a bad response shape) on any failure — callers should fall
- * back to the bare signupUrl and record a diagnostics warning.
+ * Returns a map of ISO date -> { slotid, shifts (capacity/filled per item) },
+ * built directly from SignUpGenius's own qty/qtyTaken — no inference needed.
+ * Throws on a network/HTTP failure; callers should catch and fall back to
+ * the key API.
  */
-export async function fetchDateSlotIds(
+export async function fetchCanteenSlots(
   urlKey: string,
   fetchImpl: typeof fetch = fetch,
-): Promise<Map<string, number>> {
+): Promise<Map<string, PublicDateSlot>> {
   const res = await fetchImpl(ENDPOINT, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -64,13 +83,20 @@ export async function fetchDateSlotIds(
   const body = (await res.json()) as SugPublicSignupInfo;
   const slots = body.DATA?.slots ?? {};
 
-  const map = new Map<string, number>();
+  const map = new Map<string, PublicDateSlot>();
   for (const slot of Object.values(slots)) {
     // starttime has no offset — it's already the calendar date SignUpGenius
     // means, so parse it literally rather than treating it as an instant.
     const dt = DateTime.fromFormat(slot.starttime, "LLLL, d yyyy HH:mm:ss");
     const dateKey = dt.isValid ? dt.toISODate() : null;
-    if (dateKey) map.set(dateKey, slot.slotid);
+    if (!dateKey) continue;
+
+    const shifts: CanteenShift[] = slot.items.map((item) => ({
+      label: item.item,
+      capacity: toCount(item.qty),
+      filled: toCount(item.qtyTaken),
+    }));
+    map.set(dateKey, { slotid: slot.slotid, shifts });
   }
   return map;
 }

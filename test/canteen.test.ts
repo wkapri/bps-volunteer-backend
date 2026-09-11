@@ -42,11 +42,22 @@ function fakeClient(rows: SugReportRow[]): SignUpGeniusClient {
   return { reportAll: async () => rows } as unknown as SignUpGeniusClient;
 }
 
-/** Stubs global fetch to answer the public getSignupInfo call with one date-slot. */
-function stubDateSlotIdFetch(dateSlotIds: Array<{ date: DateTime; slotid: number }>) {
+interface FakeItem {
+  item: string;
+  qty: number;
+  qtyTaken: number;
+  slotitemid?: number;
+}
+
+/** Stubs global fetch to answer the public getSignupInfo call. */
+function stubPublicEndpoint(dateSlots: Array<{ date: DateTime; slotid: number; items: FakeItem[] }>) {
   const slots: Record<string, unknown> = {};
-  for (const { date, slotid } of dateSlotIds) {
-    slots[String(slotid)] = { slotid, starttime: `${date.toFormat("LLLL, d yyyy")} 00:00:00` };
+  for (const { date, slotid, items } of dateSlots) {
+    slots[String(slotid)] = {
+      slotid,
+      starttime: `${date.toFormat("LLLL, d yyyy")} 00:00:00`,
+      items: items.map((i) => ({ ...i, slotitemid: i.slotitemid ?? 0 })),
+    };
   }
   vi.stubGlobal(
     "fetch",
@@ -57,85 +68,15 @@ function stubDateSlotIdFetch(dateSlotIds: Array<{ date: DateTime; slotid: number
   );
 }
 
+function stubPublicEndpointFailure(status = 500) {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => ({ ok: false, status, json: async () => ({}) })),
+  );
+}
+
 afterEach(() => {
   vi.unstubAllGlobals();
-});
-
-describe("buildCanteen", () => {
-  it("returns empty canteen when no matching sign-up", async () => {
-    const result = await buildCanteen(fakeClient([]), []);
-    expect(result).toEqual({
-      canteen: { signupId: null, title: null, signupUrl: "", days: [] },
-      warnings: [],
-    });
-  });
-
-  it("aggregates shifts per day, computes status, and builds the deep link from the public slotid", async () => {
-    // A weekday safely 14 days out, so it's always within the generated window
-    // regardless of when the test runs (avoids "today" rollover edge cases).
-    const targetDay = nextWeekday(DateTime.now().setZone("Australia/Sydney").plus({ days: 14 }));
-    const startdate = Math.floor(targetDay.toSeconds());
-    stubDateSlotIdFetch([{ date: targetDay, slotid: 837061137 }]);
-
-    const rows: SugReportRow[] = [
-      row({ item: "10-12", startdate, myqty: 1, firstname: "Jane", slotitemid: 1843217753 }),
-      row({ item: "10-12", startdate, myqty: 1, firstname: "" }), // unfilled half of a 2-cap shift
-      row({ item: "12-2", startdate, myqty: 2, firstname: "Joe", slotitemid: 1843217752 }),
-    ];
-
-    const { canteen, warnings } = await buildCanteen(fakeClient(rows), [CANTEEN_SIGNUP]);
-    const day = canteen.days.find((d) => d.date === targetDay.toISODate());
-
-    expect(warnings).toEqual([]);
-    expect(day).toBeDefined();
-    if (!day || day.status === "closed") throw new Error("expected an open day");
-
-    expect(day.capacity).toBe(4); // 1 + 1 + 2
-    expect(day.filled).toBe(3); // 1 (Jane) + 2 (Joe)
-    expect(day.fillPct).toBe(75);
-    expect(day.status).toBe("green");
-    expect(day.shifts).toEqual(
-      expect.arrayContaining([
-        { label: "10-12", capacity: 2, filled: 1 },
-        { label: "12-2", capacity: 2, filled: 2 },
-      ]),
-    );
-    // The date-level slotid (837061137), NOT the per-shift slotitemid (1843217753/52) —
-    // that's the bug this test guards against regressing to.
-    expect(day.deepLink).toBe("https://www.signupgenius.com/go/canteen#/#837061137-date-wrap");
-  });
-
-  it("falls back to the bare signupUrl and warns when the public endpoint fails", async () => {
-    const targetDay = nextWeekday(DateTime.now().setZone("Australia/Sydney").plus({ days: 14 }));
-    const startdate = Math.floor(targetDay.toSeconds());
-    vi.stubGlobal(
-      "fetch",
-      vi.fn(async () => ({ ok: false, status: 500, json: async () => ({}) })),
-    );
-
-    const rows: SugReportRow[] = [row({ item: "10-12", startdate, myqty: 1, firstname: "Jane" })];
-    const { canteen, warnings } = await buildCanteen(fakeClient(rows), [CANTEEN_SIGNUP]);
-    const day = canteen.days.find((d) => d.date === targetDay.toISODate());
-
-    expect(warnings).toHaveLength(1);
-    expect(warnings[0]).toMatch(/canteen deep links/);
-    if (!day || day.status === "closed") throw new Error("expected an open day");
-    expect(day.deepLink).toBe("https://www.signupgenius.com/go/canteen");
-  });
-
-  it("marks a weekday with zero capacity as closed", async () => {
-    const targetDay = nextWeekday(DateTime.now().setZone("Australia/Sydney").plus({ days: 14 }));
-    const laterDay = nextWeekday(targetDay.plus({ days: 1 }));
-    stubDateSlotIdFetch([{ date: laterDay, slotid: 837061137 }]);
-    const rows: SugReportRow[] = [
-      row({ item: "10-12", startdate: Math.floor(laterDay.toSeconds()), myqty: 1, firstname: "Jane" }),
-    ];
-
-    const { canteen } = await buildCanteen(fakeClient(rows), [CANTEEN_SIGNUP]);
-    const gapDay = canteen.days.find((d) => d.date === targetDay.toISODate());
-
-    expect(gapDay).toEqual({ date: targetDay.toISODate(), weekday: targetDay.toFormat("cccc"), status: "closed" });
-  });
 });
 
 function nextWeekday(dt: DateTime): DateTime {
@@ -143,3 +84,109 @@ function nextWeekday(dt: DateTime): DateTime {
   while (d.weekday >= 6) d = d.plus({ days: 1 });
   return d;
 }
+
+// A weekday safely 14 days out, so it's always within the generated window
+// regardless of when the test runs (avoids "today" rollover edge cases).
+function farTargetDay(): DateTime {
+  return nextWeekday(DateTime.now().setZone("Australia/Sydney").plus({ days: 14 }));
+}
+
+describe("buildCanteen", () => {
+  it("returns empty canteen when no matching sign-up", async () => {
+    const result = await buildCanteen(fakeClient([]), []);
+    expect(result.canteen).toEqual({ signupId: null, title: null, signupUrl: "", days: [] });
+    expect(result.warnings).toEqual([]);
+  });
+
+  describe("public sheet path (preferred)", () => {
+    it("builds capacity/filled straight from qty/qtyTaken and the real per-date deep link", async () => {
+      const targetDay = farTargetDay();
+      stubPublicEndpoint([
+        {
+          date: targetDay,
+          slotid: 837061137,
+          items: [
+            { item: "10-12", qty: 2, qtyTaken: 1, slotitemid: 1843217753 },
+            { item: "12-2", qty: 2, qtyTaken: 2, slotitemid: 1843217752 },
+          ],
+        },
+      ]);
+
+      const { canteen, warnings, source } = await buildCanteen(fakeClient([]), [CANTEEN_SIGNUP]);
+      const day = canteen.days.find((d) => d.date === targetDay.toISODate());
+
+      expect(source).toBe("public-sheet");
+      expect(warnings).toEqual([]);
+      expect(day).toBeDefined();
+      if (!day || day.status === "closed") throw new Error("expected an open day");
+
+      expect(day.capacity).toBe(4);
+      expect(day.filled).toBe(3);
+      expect(day.fillPct).toBe(75);
+      expect(day.status).toBe("green");
+      expect(day.shifts).toEqual(
+        expect.arrayContaining([
+          { label: "10-12", capacity: 2, filled: 1 },
+          { label: "12-2", capacity: 2, filled: 2 },
+        ]),
+      );
+      // The date-level slotid (837061137), NOT a per-shift slotitemid — that
+      // was the original bug this guards against regressing to.
+      expect(day.deepLink).toBe("https://www.signupgenius.com/go/canteen#/#837061137-date-wrap");
+    });
+
+    it("marks a weekday with no matching date-slot as closed", async () => {
+      const targetDay = farTargetDay();
+      const laterDay = nextWeekday(targetDay.plus({ days: 1 }));
+      stubPublicEndpoint([
+        { date: laterDay, slotid: 837061138, items: [{ item: "10-12", qty: 1, qtyTaken: 0 }] },
+      ]);
+
+      const { canteen } = await buildCanteen(fakeClient([]), [CANTEEN_SIGNUP]);
+      const gapDay = canteen.days.find((d) => d.date === targetDay.toISODate());
+
+      expect(gapDay).toEqual({
+        date: targetDay.toISODate(),
+        weekday: targetDay.toFormat("cccc"),
+        status: "closed",
+      });
+    });
+  });
+
+  describe("key API fallback", () => {
+    it("falls back to report/all with the bare signupUrl when the public endpoint fails", async () => {
+      stubPublicEndpointFailure();
+      const targetDay = farTargetDay();
+      const startdate = Math.floor(targetDay.toSeconds());
+      const rows: SugReportRow[] = [
+        row({ item: "10-12", startdate, myqty: 1, firstname: "Jane" }),
+        row({ item: "10-12", startdate, myqty: 1, firstname: "" }),
+        row({ item: "12-2", startdate, myqty: 2, firstname: "Joe" }),
+      ];
+
+      const { canteen, warnings, source } = await buildCanteen(fakeClient(rows), [CANTEEN_SIGNUP]);
+      const day = canteen.days.find((d) => d.date === targetDay.toISODate());
+
+      expect(source).toBe("key-api");
+      expect(warnings).toHaveLength(1);
+      expect(warnings[0]).toMatch(/canteen: public sheet endpoint failed/);
+      if (!day || day.status === "closed") throw new Error("expected an open day");
+
+      expect(day.capacity).toBe(4);
+      expect(day.filled).toBe(3);
+      expect(day.deepLink).toBe("https://www.signupgenius.com/go/canteen"); // bare signupUrl, no anchor
+    });
+
+    it("also falls back when the public endpoint returns zero date-slots", async () => {
+      stubPublicEndpoint([]); // valid response, but nothing in it
+      const targetDay = farTargetDay();
+      const rows: SugReportRow[] = [
+        row({ item: "10-12", startdate: Math.floor(targetDay.toSeconds()), myqty: 2, firstname: "Jane" }),
+      ];
+
+      const { canteen, source } = await buildCanteen(fakeClient(rows), [CANTEEN_SIGNUP]);
+      expect(source).toBe("key-api");
+      expect(canteen.days.some((d) => d.date === targetDay.toISODate())).toBe(true);
+    });
+  });
+});

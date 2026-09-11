@@ -39,7 +39,7 @@ async function main(): Promise<void> {
     process.exitCode = 1;
     return;
   }
-  const { canteen, warnings: canteenWarnings } = canteenResult;
+  const { canteen, warnings: canteenWarnings, source: canteenSource } = canteenResult;
 
   const { events, warnings: eventWarnings, fetchedCount, failureCount } = await buildEvents(
     client,
@@ -59,7 +59,7 @@ async function main(): Promise<void> {
     canteen,
     events,
     diagnostics: {
-      canteenSource: "key-api",
+      canteenSource,
       eventsFetched: fetchedCount,
       warnings,
     },
