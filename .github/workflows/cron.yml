@@ -11,6 +11,12 @@ on:
 permissions:
   contents: write # needed to commit docs/data.json back to this repo
 
+# Prevents a manual "Run workflow" from racing a concurrent scheduled tick's
+# git push to docs/data.json — queue behind it instead of running alongside.
+concurrency:
+  group: generate-data
+  cancel-in-progress: false
+
 jobs:
   generate:
     runs-on: ubuntu-latest

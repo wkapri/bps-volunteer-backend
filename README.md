@@ -58,13 +58,21 @@ direct internet access.
    below), and a `diagnostics.warnings` entry recording why. Either way:
    weekday-only, 3pm Sydney day-rollover, "closed" (zero-capacity weekday)
    detection per DESIGN.md section 4.2.
-4. `GET /signups/report/all/{signupid}/` (key API) for every other active
-   sign-up → `events`, dropped after Sydney midnight on the event date.
+4. **Events — same preferred/fallback pattern as canteen.** Every other
+   active sign-up tries the public `getSignupInfo` endpoint first (summed
+   across all its slots/items — DESIGN.md section 4.2: "v1 assumes one event
+   = one date"), falling back to `/signups/report/all/` (key API) only if
+   that fails. Unlike canteen there's no deep-link difference between the two
+   paths (events link to the bare `signupUrl` either way), so an event only
+   counts as a real *failure* (toward the >3 threshold below) if **both**
+   sources fail for it — one succeeding quietly is not a failure. Dropped
+   after Sydney midnight on the event date.
 5. Any top-level fetch failure aborts the run without writing — the previous
-   `data.json` is left in place (`DESIGN.md` section 4.3). A single failed
-   event is skipped and recorded in `diagnostics.warnings` instead of aborting
-   the whole run. `diagnostics.canteenSource` records which canteen path
-   (`"public-sheet"` or `"key-api"`) actually served this run.
+   `data.json` is left in place (`DESIGN.md` section 4.3). A single event
+   that fails *both* sources is skipped and recorded in
+   `diagnostics.warnings` instead of aborting the whole run.
+   `diagnostics.canteenSource` records which canteen path (`"public-sheet"`
+   or `"key-api"`) actually served this run.
 
 ## Schema fix vs. bps-volunteer-ui's mirror
 
@@ -88,13 +96,20 @@ per-date `slotid` only appears in the separate, keyless
 `SUGboxAPI.cfm?go=s.getSignupInfo` endpoint (see `src/publicSignupApi.ts`),
 nested one level *above* `slotitemid` in that response's shape.
 
-While fixing this, also switched canteen capacity/filled to come from that
-same endpoint's `qty`/`qtyTaken` fields directly (see "How it works" above)
+While fixing this, also switched canteen (and, since it works identically for
+one-off sign-ups, events too) capacity/filled to come from that same
+endpoint's `qty`/`qtyTaken` fields directly (see "How it works" above)
 instead of being inferred from `/signups/report/all/` row presence — this
 was always DESIGN.md's originally-specified preferred source, and is
 strictly more accurate (SignUpGenius's own numbers, not our inference). The
-key API remains as a fallback if the public endpoint ever breaks, just
-without real deep links.
+key API remains as a fallback if the public endpoint ever breaks — without
+real deep links for canteen; identical otherwise for events.
+
+Also applied the same `toCount()` (in `src/numbers.ts`) defensively to the
+key API's `myqty` field in both fallback paths — the "`\"\"` means zero"
+quirk hasn't actually been observed there, but the previous `row.myqty || 0`
+only coincidentally handled the falsy empty-string case and would have
+silently broken the same way on any other non-numeric-string value.
 
 ## Other known gaps vs. the v1 design (see `DESIGN.md` section 10)
 

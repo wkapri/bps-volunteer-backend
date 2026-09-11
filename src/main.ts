@@ -8,9 +8,9 @@ import { SignUpGeniusClient } from "./sugClient.js";
 import type { VolunteerData } from "./types.js";
 
 const TIMEZONE = "Australia/Sydney";
-const OUTPUT_PATH = process.env.OUTPUT_PATH ?? "dist/data.json";
 
-async function main(): Promise<void> {
+export async function main(): Promise<void> {
+  const OUTPUT_PATH = process.env.OUTPUT_PATH ?? "dist/data.json";
   const apiKey = process.env.SUG_API_KEY;
   if (!apiKey) {
     console.error("SUG_API_KEY is not set.");
@@ -73,7 +73,12 @@ async function main(): Promise<void> {
   );
 }
 
-main().catch((err) => {
-  console.error("Unexpected error; aborting run.", err);
-  process.exitCode = 1;
-});
+// Only auto-run when this file is the actual entrypoint (`tsx src/main.ts` /
+// `node dist/main.js`), not when imported — e.g. by tests.
+const isEntrypoint = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
+if (isEntrypoint) {
+  main().catch((err) => {
+    console.error("Unexpected error; aborting run.", err);
+    process.exitCode = 1;
+  });
+}

@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import type { SignUpGeniusClient, SugCreatedSignup } from "./sugClient.js";
+import { toCount } from "./numbers.js";
 import { fetchCanteenSlots, urlKeyFromSignupUrl, type PublicDateSlot } from "./publicSignupApi.js";
 import { fillPct, statusFromPct } from "./status.js";
 import type { Canteen, CanteenDay, CanteenShift } from "./types.js";
@@ -110,7 +111,7 @@ async function buildFromReportAll(
       byDate.set(dateKey, shifts);
     }
 
-    const qty = row.myqty || 0;
+    const qty = toCount(row.myqty);
     const shift = shifts.get(row.item) ?? { capacity: 0, filled: 0 };
     shift.capacity += qty;
     if (row.firstname) shift.filled += qty;
