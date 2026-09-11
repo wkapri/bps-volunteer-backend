@@ -2,7 +2,10 @@ name: Generate data.json
 
 on:
   schedule:
-    - cron: "7 * * * *" # hourly, off the top of the hour
+    # Hourly. GitHub explicitly warns scheduled workflows can be delayed or
+    # dropped near the top of the hour (highest load across all of Actions) —
+    # :34 avoids that window, unlike the original :07.
+    - cron: "34 * * * *"
   workflow_dispatch: {}
 
 permissions:
