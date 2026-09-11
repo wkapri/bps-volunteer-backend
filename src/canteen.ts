@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import type { SignUpGeniusClient, SugCreatedSignup } from "./sugClient.js";
+import { fetchDateSlotIds, urlKeyFromSignupUrl } from "./publicSignupApi.js";
 import { fillPct, statusFromPct } from "./status.js";
 import type { Canteen, CanteenDay, CanteenShift } from "./types.js";
 
@@ -20,24 +21,20 @@ export function resolveCanteenSignup(signups: SugCreatedSignup[]): SugCreatedSig
 interface DayAgg {
   weekday: string;
   shifts: Map<string, { capacity: number; filled: number }>;
-  /**
-   * Best-effort per-day deep-link anchor. DESIGN.md section 10 flags this as
-   * unverified: SignUpGenius's per-date `#<slotid>-date-wrap` anchor may only
-   * be obtainable from the keyless public sheet endpoint, not this report
-   * endpoint. Using the smallest slotitemid seen for the date as a stand-in
-   * until confirmed against a real browser deep link — falls back to the
-   * bare signupUrl if no slotitemid is present.
-   */
-  minSlotItemId: number | null;
+}
+
+export interface BuildCanteenResult {
+  canteen: Canteen;
+  warnings: string[];
 }
 
 export async function buildCanteen(
   client: SignUpGeniusClient,
   signups: SugCreatedSignup[],
-): Promise<Canteen> {
+): Promise<BuildCanteenResult> {
   const canteenSignup = resolveCanteenSignup(signups);
   if (!canteenSignup) {
-    return { signupId: null, title: null, signupUrl: "", days: [] };
+    return { canteen: { signupId: null, title: null, signupUrl: "", days: [] }, warnings: [] };
   }
 
   const rows = await client.reportAll(canteenSignup.signupid);
@@ -56,7 +53,7 @@ export async function buildCanteen(
 
     let agg = byDate.get(dateKey);
     if (!agg) {
-      agg = { weekday: dt.toFormat("cccc"), shifts: new Map(), minSlotItemId: null };
+      agg = { weekday: dt.toFormat("cccc"), shifts: new Map() };
       byDate.set(dateKey, agg);
     }
 
@@ -65,12 +62,25 @@ export async function buildCanteen(
     shift.capacity += qty;
     if (row.firstname) shift.filled += qty;
     agg.shifts.set(row.item, shift);
+  }
 
-    if (typeof row.slotitemid === "number") {
-      if (agg.minSlotItemId === null || row.slotitemid < agg.minSlotItemId) {
-        agg.minSlotItemId = row.slotitemid;
-      }
+  // Per-date deep-link anchor ids live only in this separate, keyless public
+  // endpoint — /signups/report/all/'s slotitemid is a different, per-shift
+  // id and does not work as the `-date-wrap` anchor. See publicSignupApi.ts.
+  const warnings: string[] = [];
+  let dateSlotIds = new Map<string, number>();
+  const urlKey = urlKeyFromSignupUrl(canteenSignup.signupurl);
+  if (urlKey) {
+    try {
+      dateSlotIds = await fetchDateSlotIds(urlKey);
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      warnings.push(
+        `canteen deep links: failed to fetch date-slot ids (${message}) — falling back to bare signupUrl for all days`,
+      );
     }
+  } else {
+    warnings.push(`canteen deep links: could not parse urlid from signupUrl "${canteenSignup.signupurl}"`);
   }
 
   const days: CanteenDay[] = [];
@@ -84,7 +94,9 @@ export async function buildCanteen(
       if (cursor.weekday <= 5) {
         const dateKey = cursor.toISODate();
         if (dateKey) {
-          days.push(buildDay(dateKey, cursor.toFormat("cccc"), byDate.get(dateKey), canteenSignup));
+          days.push(
+            buildDay(dateKey, cursor.toFormat("cccc"), byDate.get(dateKey), canteenSignup, dateSlotIds),
+          );
         }
       }
       cursor = cursor.plus({ days: 1 });
@@ -92,10 +104,13 @@ export async function buildCanteen(
   }
 
   return {
-    signupId: canteenSignup.signupid,
-    title: canteenSignup.title,
-    signupUrl: canteenSignup.signupurl,
-    days,
+    canteen: {
+      signupId: canteenSignup.signupid,
+      title: canteenSignup.title,
+      signupUrl: canteenSignup.signupurl,
+      days,
+    },
+    warnings,
   };
 }
 
@@ -104,6 +119,7 @@ function buildDay(
   weekday: string,
   agg: DayAgg | undefined,
   canteenSignup: SugCreatedSignup,
+  dateSlotIds: Map<string, number>,
 ): CanteenDay {
   if (!agg) {
     return { date, weekday, status: "closed" };
@@ -123,10 +139,9 @@ function buildDay(
   }
 
   const status = statusFromPct(pct) as "green" | "amber" | "red";
+  const slotId = dateSlotIds.get(date);
   const deepLink =
-    agg.minSlotItemId != null
-      ? `${canteenSignup.signupurl}#/#${agg.minSlotItemId}-date-wrap`
-      : canteenSignup.signupurl;
+    slotId != null ? `${canteenSignup.signupurl}#/#${slotId}-date-wrap` : canteenSignup.signupurl;
 
   return { date, weekday, status, capacity, filled, fillPct: pct, deepLink, shifts };
 }

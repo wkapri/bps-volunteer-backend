@@ -31,20 +31,22 @@ async function main(): Promise<void> {
     return;
   }
 
-  const canteen = await buildCanteen(client, signups).catch((err) => {
+  const canteenResult = await buildCanteen(client, signups).catch((err) => {
     console.error("Failed to build canteen section; aborting run.", err);
     return null;
   });
-  if (!canteen) {
+  if (!canteenResult) {
     process.exitCode = 1;
     return;
   }
+  const { canteen, warnings: canteenWarnings } = canteenResult;
 
-  const { events, warnings, fetchedCount, failureCount } = await buildEvents(
+  const { events, warnings: eventWarnings, fetchedCount, failureCount } = await buildEvents(
     client,
     signups,
     canteen.signupId,
   );
+  const warnings = [...canteenWarnings, ...eventWarnings];
 
   if (failureCount > 3) {
     console.error(`⚠ ${failureCount} events failed to fetch this run — see diagnostics.warnings.`);

@@ -39,7 +39,11 @@ npm run generate       # writes dist/data.json
    participant fields and `myqty` is its remaining capacity. Grouped by date,
    summed into per-shift and per-day capacity/filled, filtered to weekdays,
    with the 3pm Sydney day-rollover and "closed" (zero-capacity weekday)
-   detection from `DESIGN.md` section 4.2.
+   detection from `DESIGN.md` section 4.2. Separately,
+   `POST https://www.signupgenius.com/SUGboxAPI.cfm?go=s.getSignupInfo`
+   (keyless, undocumented — see `src/publicSignupApi.ts`) for the per-date
+   `slotid` each day's deep-link anchor needs — a *different* id from
+   `slotitemid` above; see "Canteen deep link" below.
 4. Same report call for every other active sign-up → `events`, dropped after
    Sydney midnight on the event date.
 5. Any top-level fetch failure aborts the run without writing — the previous
@@ -57,14 +61,23 @@ browsers handle fine. Fixed here by dropping the `format` constraint on that
 one field (confirmed against a real generated `data.json` + `npm run
 validate`). Applied the same fix to `bps-volunteer-ui`'s mirror schema.
 
-## Known gaps vs. the v1 design (see `DESIGN.md` section 10)
+## Canteen deep link (was broken, now fixed)
 
-- **Canteen deep link.** The per-date `#<slotid>-date-wrap` anchor is
-  currently derived from the smallest `slotitemid` seen for that date in the
-  report response. This is a best-effort stand-in — the design doc flags it as
-  **unverified**: confirm it actually lands on the right day in a browser
-  before trusting it, or switch to the keyless public sign-up sheet endpoint
-  if it doesn't.
+`DESIGN.md` section 10 flagged the per-date `#<slotid>-date-wrap` anchor as
+unverified. It was in fact broken: the original implementation used the
+smallest `slotitemid` seen for that date in `/signups/report/all/` —
+`slotitemid` is a **per-shift** id, not the per-date id the `-date-wrap`
+anchor needs, so every deep link pointed at the wrong (or a non-existent)
+anchor. Confirmed 2026-09-11 by reverse-engineering signup.min.js: the real
+per-date `slotid` only appears in the separate, keyless
+`SUGboxAPI.cfm?go=s.getSignupInfo` endpoint (see `src/publicSignupApi.ts`),
+nested one level *above* `slotitemid` in that response's shape. Cron now
+calls both endpoints; if the public one fails, it falls back to the bare
+`signupUrl` and records a `diagnostics.warnings` entry rather than breaking
+the link silently.
+
+## Other known gaps vs. the v1 design (see `DESIGN.md` section 10)
+
 - **Event description/image.** SignUpGenius doesn't return a usable
   description for the real sign-ups tested; `description` is currently always
   `null` and `imageUrl` falls back to the theme thumbnail. A hand-maintained
