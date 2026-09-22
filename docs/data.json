@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T10:14:13.875+10:00",
+  "generatedAt": "2026-09-22T15:16:27.888+10:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -7,11 +7,6 @@
     "title": "Canteen Volunteer Term 3 2026 TEST",
     "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-63670841-canteen",
     "days": [
-      {
-        "date": "2026-09-22",
-        "weekday": "Tuesday",
-        "status": "closed"
-      },
       {
         "date": "2026-09-23",
         "weekday": "Wednesday",
