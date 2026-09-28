@@ -32,7 +32,7 @@ export async function buildCanteen(
   const canteenSignup = resolveCanteenSignup(signups);
   if (!canteenSignup) {
     return {
-      canteen: { signupId: null, title: null, signupUrl: "", days: [] },
+      canteen: { signupId: null, title: null, signupUrl: null, days: [] },
       warnings: [],
       source: "public-sheet",
     };

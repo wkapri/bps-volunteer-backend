@@ -94,7 +94,7 @@ function farTargetDay(): DateTime {
 describe("buildCanteen", () => {
   it("returns empty canteen when no matching sign-up", async () => {
     const result = await buildCanteen(fakeClient([]), []);
-    expect(result.canteen).toEqual({ signupId: null, title: null, signupUrl: "", days: [] });
+    expect(result.canteen).toEqual({ signupId: null, title: null, signupUrl: null, days: [] });
     expect(result.warnings).toEqual([]);
   });
 
