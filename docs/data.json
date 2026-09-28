@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-28T17:25:18.693+10:00",
+  "generatedAt": "2026-09-28T21:04:34.859+10:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -10,12 +10,12 @@
   },
   "events": [
     {
-      "id": 57849473,
-      "title": "BPS Working Bee",
+      "id": 65776711,
+      "title": "BPS Working Bee TEST",
       "date": "2026-10-24",
       "description": null,
       "imageUrl": "https://www.signupgenius.com/images/theme/F73EAA2023CE19FA7D91C8B1EBE99BCC_0.jpg",
-      "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-57849473-bpsworking",
+      "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-65776711-bpsworking",
       "status": "red",
       "capacity": 327,
       "filled": 20,
@@ -23,16 +23,16 @@
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
-      "id": 58975374,
-      "title": "Disco - Years 3-6 - Friday 6th November 2026",
+      "id": 65776897,
+      "title": "Disco - Years 3-6 - Friday 6th November 2026 TEST",
       "date": "2026-11-06",
       "description": null,
       "imageUrl": "https://www.signupgenius.com/images/theme/741F9E11AEDDAC424C1B4F4B1C53021B_0.jpg",
-      "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-58975374-disco",
-      "status": "green",
+      "signupUrl": "https://www.signupgenius.com/go/10C054FABA722AAFFC07-65776897-disco",
+      "status": "amber",
       "capacity": 26,
-      "filled": 21,
-      "fillPct": 81,
+      "filled": 14,
+      "fillPct": 54,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     }
   ],
