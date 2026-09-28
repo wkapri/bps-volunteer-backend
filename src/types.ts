@@ -37,7 +37,7 @@ export type CanteenDay =
 export interface Canteen {
   signupId: number | null;
   title: string | null;
-  signupUrl: string;
+  signupUrl: string | null; // null => no matching sign-up found (see resolveCanteenSignup)
   days: CanteenDay[]; // empty => between terms
 }
 

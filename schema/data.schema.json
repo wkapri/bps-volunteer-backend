@@ -16,7 +16,7 @@
       "properties": {
         "signupId": { "type": ["integer", "null"] },
         "title": { "type": ["string", "null"] },
-        "signupUrl": { "type": "string", "format": "uri" },
+        "signupUrl": { "type": ["string", "null"], "format": "uri" },
         "days": { "type": "array", "items": { "$ref": "#/$defs/canteenDay" } }
       }
     },
