@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-30T06:58:21.888+10:00",
+  "generatedAt": "2026-09-30T10:41:43.665+10:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -374,11 +374,37 @@
       "filled": 21,
       "fillPct": 81,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
+    },
+    {
+      "id": 66296286,
+      "title": "Band & Strings roles",
+      "date": "2027-11-16",
+      "description": null,
+      "imageUrl": "https://www.signupgenius.com/images/theme/4FA9D35F4365DDCAA6F8E6E8D86155CB_50866340.jpg",
+      "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66296286-band",
+      "status": "red",
+      "capacity": 1,
+      "filled": 0,
+      "fillPct": 0,
+      "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
+    },
+    {
+      "id": 66295509,
+      "title": "P&C Executive roles",
+      "date": "2027-11-16",
+      "description": null,
+      "imageUrl": "https://www.signupgenius.com/images/theme/748E0FABAE9EF67536A371A52907D55A_0.png",
+      "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66295509-pcexecutive",
+      "status": "red",
+      "capacity": 1,
+      "filled": 0,
+      "fillPct": 0,
+      "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     }
   ],
   "diagnostics": {
     "canteenSource": "public-sheet",
-    "eventsFetched": 2,
+    "eventsFetched": 4,
     "warnings": []
   }
 }
