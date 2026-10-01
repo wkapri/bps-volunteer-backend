@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-01T10:05:42.429+10:00",
+  "generatedAt": "2026-10-01T16:24:03.176+10:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -7,11 +7,6 @@
     "title": "Canteen Volunteer Term 4 2026",
     "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen",
     "days": [
-      {
-        "date": "2026-10-01",
-        "weekday": "Thursday",
-        "status": "closed"
-      },
       {
         "date": "2026-10-02",
         "weekday": "Friday",
