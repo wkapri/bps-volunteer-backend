@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T10:52:01.922+11:00",
+  "generatedAt": "2026-10-12T17:21:52.479+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -8,23 +8,18 @@
     "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen",
     "days": [
       {
-        "date": "2026-10-12",
-        "weekday": "Monday",
-        "status": "closed"
-      },
-      {
         "date": "2026-10-13",
         "weekday": "Tuesday",
-        "status": "amber",
+        "status": "red",
         "capacity": 4,
-        "filled": 1,
-        "fillPct": 25,
+        "filled": 0,
+        "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709364-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 2,
-            "filled": 1
+            "filled": 0
           },
           {
             "label": "12pm - 2pm",
@@ -36,16 +31,16 @@
       {
         "date": "2026-10-14",
         "weekday": "Wednesday",
-        "status": "amber",
+        "status": "red",
         "capacity": 4,
-        "filled": 1,
-        "fillPct": 25,
+        "filled": 0,
+        "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709401-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 2,
-            "filled": 1
+            "filled": 0
           },
           {
             "label": "12pm - 2pm",
@@ -57,21 +52,21 @@
       {
         "date": "2026-10-15",
         "weekday": "Thursday",
-        "status": "red",
+        "status": "amber",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 2,
+        "fillPct": 33,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709436-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           },
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
