@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T17:21:52.479+11:00",
+  "generatedAt": "2026-10-13T02:56:09.817+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -31,42 +31,42 @@
       {
         "date": "2026-10-14",
         "weekday": "Wednesday",
-        "status": "red",
+        "status": "amber",
         "capacity": 4,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 2,
+        "fillPct": 50,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709401-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 2,
-            "filled": 0
+            "filled": 1
           },
           {
             "label": "12pm - 2pm",
             "capacity": 2,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
       {
         "date": "2026-10-15",
         "weekday": "Thursday",
-        "status": "amber",
+        "status": "red",
         "capacity": 6,
-        "filled": 2,
-        "fillPct": 33,
+        "filled": 0,
+        "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709436-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 3,
-            "filled": 1
+            "filled": 0
           },
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 1
+            "filled": 0
           }
         ]
       },
@@ -75,8 +75,8 @@
         "weekday": "Friday",
         "status": "red",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 1,
+        "fillPct": 17,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709437-date-wrap",
         "shifts": [
           {
@@ -87,7 +87,7 @@
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
@@ -285,8 +285,8 @@
         "weekday": "Friday",
         "status": "red",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 1,
+        "fillPct": 17,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709441-date-wrap",
         "shifts": [
           {
@@ -297,7 +297,7 @@
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
@@ -390,8 +390,8 @@
         "weekday": "Friday",
         "status": "red",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 1,
+        "fillPct": 17,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709443-date-wrap",
         "shifts": [
           {
@@ -402,7 +402,7 @@
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
@@ -495,8 +495,8 @@
         "weekday": "Friday",
         "status": "red",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 1,
+        "fillPct": 17,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709445-date-wrap",
         "shifts": [
           {
@@ -507,7 +507,7 @@
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
@@ -600,8 +600,8 @@
         "weekday": "Friday",
         "status": "red",
         "capacity": 6,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 1,
+        "fillPct": 17,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709447-date-wrap",
         "shifts": [
           {
@@ -612,7 +612,7 @@
           {
             "label": "12pm - 2pm",
             "capacity": 3,
-            "filled": 0
+            "filled": 1
           }
         ]
       },
