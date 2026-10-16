@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-16T12:35:16.098+11:00",
+  "generatedAt": "2026-10-16T18:27:25.265+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -7,27 +7,6 @@
     "title": "Canteen Volunteer Term 4 2026",
     "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen",
     "days": [
-      {
-        "date": "2026-10-16",
-        "weekday": "Friday",
-        "status": "red",
-        "capacity": 6,
-        "filled": 1,
-        "fillPct": 17,
-        "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709437-date-wrap",
-        "shifts": [
-          {
-            "label": "10am - 12pm",
-            "capacity": 3,
-            "filled": 0
-          },
-          {
-            "label": "12pm - 2pm",
-            "capacity": 3,
-            "filled": 1
-          }
-        ]
-      },
       {
         "date": "2026-10-19",
         "weekday": "Monday",
@@ -964,8 +943,8 @@
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66773729-colour",
       "status": "amber",
       "capacity": 6,
-      "filled": 3,
-      "fillPct": 50,
+      "filled": 4,
+      "fillPct": 67,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
@@ -988,10 +967,10 @@
       "description": null,
       "imageUrl": "https://www.signupgenius.com/images/theme/741F9E11AEDDAC424C1B4F4B1C53021B_0.jpg",
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-58975374-disco",
-      "status": "green",
-      "capacity": 26,
-      "filled": 21,
-      "fillPct": 81,
+      "status": "amber",
+      "capacity": 46,
+      "filled": 28,
+      "fillPct": 61,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
