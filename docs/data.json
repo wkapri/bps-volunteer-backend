@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T16:58:15.045+11:00",
+  "generatedAt": "2026-10-17T22:04:24.072+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -955,7 +955,7 @@
       "imageUrl": "https://www.signupgenius.com/images/theme/F73EAA2023CE19FA7D91C8B1EBE99BCC_0.jpg",
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-57849473-bpsworking",
       "status": "red",
-      "capacity": 327,
+      "capacity": 329,
       "filled": 27,
       "fillPct": 8,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
