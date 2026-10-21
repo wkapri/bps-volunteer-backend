@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-21T21:29:06.409+11:00",
+  "generatedAt": "2026-10-22T02:30:17.053+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -919,8 +919,8 @@
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-58975374-disco",
       "status": "amber",
       "capacity": 46,
-      "filled": 30,
-      "fillPct": 65,
+      "filled": 31,
+      "fillPct": 67,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
