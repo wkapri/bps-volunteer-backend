@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-23T09:38:36.975+11:00",
+  "generatedAt": "2026-10-23T12:46:45.813+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -870,10 +870,10 @@
       "description": null,
       "imageUrl": "https://www.signupgenius.com/images/theme/A69C2E09C5A715C3D0243FD5E5548645_0.png",
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66949174-uniform",
-      "status": "red",
+      "status": "amber",
       "capacity": 18,
-      "filled": 4,
-      "fillPct": 22,
+      "filled": 5,
+      "fillPct": 28,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
