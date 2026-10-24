@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-24T22:27:03.162+11:00",
+  "generatedAt": "2026-10-25T01:46:00.409+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -829,19 +829,6 @@
     ]
   },
   "events": [
-    {
-      "id": 57849473,
-      "title": "BPS Working Bee",
-      "date": "2026-10-24",
-      "description": null,
-      "imageUrl": "https://www.signupgenius.com/images/theme/F73EAA2023CE19FA7D91C8B1EBE99BCC_0.jpg",
-      "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-57849473-bpsworking",
-      "status": "red",
-      "capacity": 329,
-      "filled": 49,
-      "fillPct": 15,
-      "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
-    },
     {
       "id": 66949174,
       "title": "Uniform Shop Volunteers- Kindergarten Orientation",
