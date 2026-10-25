@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-25T23:42:10.402+11:00",
+  "generatedAt": "2026-10-26T04:10:52.718+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -884,7 +884,7 @@
   ],
   "diagnostics": {
     "canteenSource": "public-sheet",
-    "eventsFetched": 5,
+    "eventsFetched": 4,
     "warnings": []
   }
 }
