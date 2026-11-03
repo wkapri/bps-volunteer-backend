@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-03T05:43:32.386+11:00",
+  "generatedAt": "2026-11-03T12:44:38.014+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -710,10 +710,10 @@
       "description": null,
       "imageUrl": "https://www.signupgenius.com/images/theme/741F9E11AEDDAC424C1B4F4B1C53021B_0.jpg",
       "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-58975374-disco",
-      "status": "amber",
+      "status": "green",
       "capacity": 46,
-      "filled": 34,
-      "fillPct": 74,
+      "filled": 35,
+      "fillPct": 76,
       "capacityNote": "Naive sum of slot quantities — may include non-volunteer slots (see DESIGN.md section 10)."
     },
     {
