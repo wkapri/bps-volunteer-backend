@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T11:30:16.953+11:00",
+  "generatedAt": "2026-11-06T18:14:11.086+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -8,43 +8,22 @@
     "signupUrl": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen",
     "days": [
       {
-        "date": "2026-11-06",
-        "weekday": "Friday",
-        "status": "red",
-        "capacity": 6,
-        "filled": 1,
-        "fillPct": 17,
-        "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709443-date-wrap",
-        "shifts": [
-          {
-            "label": "10am - 12pm",
-            "capacity": 3,
-            "filled": 0
-          },
-          {
-            "label": "12pm - 2pm",
-            "capacity": 3,
-            "filled": 1
-          }
-        ]
-      },
-      {
         "date": "2026-11-09",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709411-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -53,19 +32,19 @@
         "date": "2026-11-10",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709412-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -74,19 +53,19 @@
         "date": "2026-11-11",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709413-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -95,19 +74,19 @@
         "date": "2026-11-12",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709444-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -115,20 +94,20 @@
       {
         "date": "2026-11-13",
         "weekday": "Friday",
-        "status": "red",
-        "capacity": 6,
+        "status": "amber",
+        "capacity": 4,
         "filled": 1,
-        "fillPct": 17,
+        "fillPct": 25,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709445-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 1
           }
         ]
@@ -137,19 +116,19 @@
         "date": "2026-11-16",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709414-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -158,19 +137,19 @@
         "date": "2026-11-17",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709415-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -179,19 +158,19 @@
         "date": "2026-11-18",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709416-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -200,19 +179,19 @@
         "date": "2026-11-19",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709446-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -220,20 +199,20 @@
       {
         "date": "2026-11-20",
         "weekday": "Friday",
-        "status": "red",
-        "capacity": 6,
+        "status": "amber",
+        "capacity": 4,
         "filled": 1,
-        "fillPct": 17,
+        "fillPct": 25,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709447-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 1
           }
         ]
@@ -242,19 +221,19 @@
         "date": "2026-11-23",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709417-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -263,19 +242,19 @@
         "date": "2026-11-24",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709418-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -284,19 +263,19 @@
         "date": "2026-11-25",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709419-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -305,19 +284,19 @@
         "date": "2026-11-26",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709448-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -326,19 +305,19 @@
         "date": "2026-11-27",
         "weekday": "Friday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709449-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -347,19 +326,19 @@
         "date": "2026-11-30",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709420-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -368,19 +347,19 @@
         "date": "2026-12-01",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709421-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -389,19 +368,19 @@
         "date": "2026-12-02",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709422-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -410,19 +389,19 @@
         "date": "2026-12-03",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709450-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -431,19 +410,19 @@
         "date": "2026-12-04",
         "weekday": "Friday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709451-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -452,19 +431,19 @@
         "date": "2026-12-07",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709423-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -473,19 +452,19 @@
         "date": "2026-12-08",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709424-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -494,19 +473,19 @@
         "date": "2026-12-09",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709425-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -515,19 +494,19 @@
         "date": "2026-12-10",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709452-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -536,19 +515,19 @@
         "date": "2026-12-11",
         "weekday": "Friday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709453-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
@@ -557,19 +536,19 @@
         "date": "2026-12-14",
         "weekday": "Monday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709426-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -578,19 +557,19 @@
         "date": "2026-12-15",
         "weekday": "Tuesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709427-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -599,19 +578,19 @@
         "date": "2026-12-16",
         "weekday": "Wednesday",
         "status": "red",
-        "capacity": 4,
+        "capacity": 2,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709428-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 2,
+            "capacity": 1,
             "filled": 0
           }
         ]
@@ -620,19 +599,19 @@
         "date": "2026-12-17",
         "weekday": "Thursday",
         "status": "red",
-        "capacity": 6,
+        "capacity": 4,
         "filled": 0,
         "fillPct": 0,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709454-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           },
           {
             "label": "12pm - 2pm",
-            "capacity": 3,
+            "capacity": 2,
             "filled": 0
           }
         ]
