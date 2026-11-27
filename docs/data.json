@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T15:27:55.499+11:00",
+  "generatedAt": "2026-11-28T01:11:25.455+11:00",
   "timezone": "Australia/Sydney",
   "schemaVersion": 1,
   "canteen": {
@@ -283,21 +283,21 @@
       {
         "date": "2026-12-17",
         "weekday": "Thursday",
-        "status": "red",
+        "status": "amber",
         "capacity": 4,
-        "filled": 0,
-        "fillPct": 0,
+        "filled": 2,
+        "fillPct": 50,
         "deepLink": "https://www.signupgenius.com/go/10C084EACAF2BA0FDC43-66263752-canteen#/#842709454-date-wrap",
         "shifts": [
           {
             "label": "10am - 12pm",
             "capacity": 2,
-            "filled": 0
+            "filled": 1
           },
           {
             "label": "12pm - 2pm",
             "capacity": 2,
-            "filled": 0
+            "filled": 1
           }
         ]
       }
